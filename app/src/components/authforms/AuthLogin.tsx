@@ -4,7 +4,6 @@ import React from "react";
 
 const AuthLogin = () => {
   return (
-    <>
       <form>
         <div className="mb-4">
           <div className="mb-2 block">
@@ -46,7 +45,6 @@ const AuthLogin = () => {
           Sign in
         </Button>
       </form>
-    </>
   );
 };
 

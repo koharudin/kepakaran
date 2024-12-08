@@ -1,7 +1,7 @@
 "use client"
 import React from "react";
 import Link from "next/link";
-import AuthLogin from "../../../../components/authforms/AuthLogin";
+import AuthLogin from "../../../components/authforms/AuthLogin";
 
 import FullLogo from "@/app/(DashboardLayout)/layout/shared/logo/FullLogo";
 const gradientStyle = {

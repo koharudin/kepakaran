@@ -9,13 +9,15 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@iconify/react": "^5.1.0",
     "bootstrap": "^5.3.3",
     "flowbite": "^2.5.2",
     "flowbite-react": "^0.10.2",
     "next": "15.0.4",
     "react": "^19.0.0",
     "react-bootstrap": "^2.10.6",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "simplebar-react": "^3.2.6"
   },
   "devDependencies": {
     "@types/node": "^20",

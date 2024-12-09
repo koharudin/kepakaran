@@ -1,5 +1,5 @@
 import { router } from "../trpc"
-import { bookRouter } from "./book"
+import { bookRouter } from "@/server/routers/book"
 
 export const appRouter = router({
   book: bookRouter,

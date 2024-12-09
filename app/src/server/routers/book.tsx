@@ -20,6 +20,9 @@ export const bookRouter = router({
       })
       return { data }
     }),
+  getz:publicProcedure.query(async({ input, ctx })=>{
+    return 123
+  }),
   get: publicProcedure
     .input(
       z.object({
@@ -27,22 +30,8 @@ export const bookRouter = router({
       }),
     )
     .query(async ({ input, ctx }) => {
-      const data = await ctx.prisma.books.findMany({
-        select: {
-          id: true,
-          title: true,
-          author: true,
-          description: true,
-          isFavorite: true,
-        },
-        orderBy: {
-          createdAt: "desc",
-        },
-        where: {
-          isFavorite: input.isFavorite,
-        },
-      })
-      return { data }
+      return 
+      
     }),
   delete: publicProcedure
     .input(

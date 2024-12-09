@@ -1,0 +1,97 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Employee {
+  id                          BigInt                  @id(map: "employee_pk") @unique(map: "employee_id_idx") @default(autoincrement())
+  name                        String?                 @db.VarChar
+  birth_date                  DateTime?
+  publications                Riwayat_Publikasi[]
+  Kolaborator_Publikasi       Kolaborator_Publikasi[]
+  kepakaran_brief_description String                  @db.Text // Menggunakan tipe data TEXT
+  unit_kerja_id               BigInt?
+  unit_kerja                  Satuan_Kerja?           @relation(fields: [unit_kerja_id], references: [id])
+  Riwayat_Pendidikan          Riwayat_Pendidikan[]
+
+  @@map("employee")
+}
+
+model Expertise {
+  id         BigInt      @id(map: "expertise_pk") @default(autoincrement())
+  name       String      @db.VarChar
+  parent_id  BigInt?     @default(0)
+  parent     Expertise?  @relation("childx", fields: [parent_id], references: [id])
+  list_child Expertise[] @relation("childx")
+
+  @@map("expertise")
+}
+
+model Riwayat_Publikasi {
+  id                    BigInt                  @id(map: "publication_pk") @unique(map: "publication_id") @default(autoincrement())
+  employee_id           Employee                @relation(fields: [employeeId], references: [id])
+  employeeId            BigInt
+  title                 String
+  Kolaborator_Publikasi Kolaborator_Publikasi[]
+
+  penerbit_id BigInt
+  penerbit    Publisher @relation(fields: [penerbit_id], references: [id])
+
+  @@map("riwayat_publikasi")
+}
+
+model Riwayat_Pendidikan {
+  id                 BigInt   @id(map: "riwayat_pendidikan_pk") @default(autoincrement())
+  employee           Employee @relation(fields: [employee_id], references: [id])
+  employee_id        BigInt
+  jurusan            String
+  lembaga_pendidikan String
+  tahun_masuk        Int
+  tahun_lulus        Int
+
+  @@map("riwayat_pendidikan")
+}
+
+model Kolaborator_Publikasi {
+  id BigInt @id(map: "kolaborator_publikasi_pk") @unique @default(autoincrement())
+
+  publikasi_id BigInt
+  publikasi    Riwayat_Publikasi @relation(fields: [publikasi_id], references: [id])
+
+  employee_id BigInt
+  employee    Employee @relation(fields: [employee_id], references: [id])
+
+  @@map("kolaborator_publikasi")
+}
+
+model Satuan_Kerja {
+  id         BigInt         @id(map: "satuan_kerja_pk") @unique @default(autoincrement())
+  name       String
+  parent_id  BigInt?
+  parent     Satuan_Kerja?  @relation("parent", fields: [parent_id], references: [id])
+  list_child Satuan_Kerja[] @relation("parent")
+  Employee   Employee[]
+
+  @@map("satuan_kerja")
+}
+
+// penerbit
+model Publisher {
+  id                BigInt              @id(map: "publisher_pk") @default(autoincrement())
+  name              String
+  Riwayat_Publikasi Riwayat_Publikasi[]
+
+  @@map("publisher")
+}
+
+// Scopus, WoS
+model Layanan_Indeksasi {
+  id   BigInt @id(map: "layanan_indeksasi_pk") @default(autoincrement())
+  name String
+  tipe Int @default(0)
+  @@map("layanan_indeksasi")
+}

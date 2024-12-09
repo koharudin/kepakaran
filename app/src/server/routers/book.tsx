@@ -3,7 +3,21 @@ import { publicProcedure, router } from "../trpc"
 
 export const bookRouter = router({
  
-  getz: publicProcedure.query(async ({ input, ctx }) => {
+  getz: publicProcedure.meta({
+    openapi: {
+      method: "GET",
+      path: "/public/xxxx",
+    },
+  })
+  .output(
+    z.array(
+      z.object({
+        id: z.string(),
+        name: z.string(),
+      }),
+    ),
+  )
+  .input(z.void()).query(async ({ input, ctx }) => {
     return 123
   }),
   get: publicProcedure

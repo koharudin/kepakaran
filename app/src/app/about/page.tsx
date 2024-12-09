@@ -1,5 +1,5 @@
 import Layout from "../../components/Layout"
 
 export default()=>{
-    return <Layout>Profiles</Layout>
+    return <Layout>About</Layout>
 }
